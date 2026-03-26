@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Contri",
-    "slug": "Contri",
+    "slug": "cointree",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,8 +30,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "contri-expense-sharing"
+        "projectId": "c248d80c-d232-47ed-bb75-9c92cea1c6f6"
       }
-    }
+    },
+    "owner": "kiinshuks-organization"
   }
 }
