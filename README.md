@@ -4,132 +4,41 @@ A mobile expense-sharing app built with React Native and Expo. Split expenses ea
 
 ## 📱 Features
 
-- **One-tap Expense Add** - Quick add with smart defaults (you as payer, equal split, today's date)
+- **One-tap Expense Add** - Quick add with smart defaults
 - **Custom Splits** - Split expenses unequally based on what each person consumed
 - **Group Management** - Create groups and add members by email
 - **Balance Tracking** - Real-time balance calculation showing who owes whom
 - **Settle Up** - One-tap settlement when you want to clear debts
-- **Human-friendly Output** - "You owe ₹150" instead of confusing negative numbers
+- **Human-friendly Output** - "You owe ₹150" instead of confusing numbers
 - **Authentication** - Secure email/password login with auto-login
 
 ## 🛠️ Tech Stack
 
 - **Framework**: React Native with Expo SDK 54
-- **Language**: JavaScript
 - **Backend**: Firebase (Auth + Firestore)
-- **Navigation**: React Navigation (Stack)
-- **Storage**: AsyncStorage
+- **Navigation**: React Navigation
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-- Expo Go app (for testing on mobile)
-- Firebase account (for backend)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/kiinshuk/cointree.git
-   cd contri
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure Firebase**
-   - Create a project at [firebase.google.com](https://firebase.google.com)
-   - Enable **Authentication** (Email/Password)
-   - Enable **Firestore** database
-   - Copy your Firebase config to `firebase/config.js`
-
-4. **Start the app**
-   ```bash
-   npx expo start
-   ```
-
-5. **Run on mobile**
-   - Install **Expo Go** from Play Store/App Store
-   - Scan the QR code from terminal
-   - Or press `a` for Android emulator
-
-## 📲 How to Use
-
-### Creating a Group
-1. Open the app and login/signup
-2. Tap the **+** button to create a new group
-3. Enter group name and tap "Create"
-
-### Adding Members
-1. Open a group
-2. Tap the **👤** button in header
-3. Enter member's email and search
-4. Tap "Add" to add them
-
-### Adding Expenses
-1. Open a group
-2. Tap **+** button or "Add Expense"
-3. Enter description and amount
-4. Choose split type:
-   - **Equal**: Splits equally among all members
-   - **Custom**: Enter what each person actually paid
-
-### Viewing Balances
-1. Tap on the balance card to see detailed breakdown
-2. Shows who owes whom and how much
-
-### Settling Up
-1. If you owe money, tap "Settle Up"
-2. Select who to pay
-3. Amount is automatically calculated
-
-## 📦 Building APK
-
-### Option 1: Development Build (Recommended)
+### 1. Clone & Install
 ```bash
-npx expo prebuild
-npx expo run:android
+git clone https://github.com/kiinshuk/cointree.git
+cd contri
+npm install
 ```
 
-### Option 2: Production Build
-```bash
-npx expo build:android
-```
+### 2. Configure Firebase (Required)
 
-### Option 3: EAS Build (Best for distribution)
-1. Install EAS CLI: `npm install -g eas-cli`
-2. Configure: `eas configure`
-3. Build: `eas build -p android`
+1. Go to [Firebase Console](https://console.firebase.google.com)
+2. Create a new project
+3. Enable **Authentication** (Email/Password provider)
+4. Enable **Firestore** database (start in test mode)
+5. Go to **Project Settings > General**
+6. Copy your Firebase config
 
-The APK will be generated in `android/app/build/outputs/apk/` or can be downloaded from EAS.
+### 3. Add Firebase Config
 
-## 📁 Project Structure
-
-```
-Contri/
-├── App.js                 # Main entry point
-├── context/               # React Context (Auth, Groups)
-├── firebase/              # Firebase configuration
-├── navigation/            # Navigation setup
-├── screens/               # App screens
-│   ├── LoginScreen.js
-│   ├── SignupScreen.js
-│   ├── GroupsScreen.js
-│   ├── GroupDetailScreen.js
-│   └── SettingsScreen.js
-├── utils/                 # Utility functions
-│   └── balanceCalculator.js
-└── package.json
-```
-
-## 🔧 Configuration
-
-Update `firebase/config.js` with your Firebase credentials:
+Edit `firebase/config.js` with your credentials:
 ```javascript
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -137,28 +46,100 @@ const firebaseConfig = {
   projectId: "your-project-id",
   storageBucket: "your-project.appspot.com",
   messagingSenderId: "123456789",
-  appId: "your-app-id"
+  appId: "1:123456789:web:abc123"
 };
 ```
+
+### 4. Run the App
+
+```bash
+npx expo start
+```
+
+Scan QR code with **Expo Go** app on your phone.
+
+---
+
+## 📲 Running Without Installing Tools
+
+### Option A: Expo Go (Easiest)
+- Clone repo
+- Run `npm install`
+- Run `npx expo start`
+- Scan QR code
+
+### Option B: Prebuilt APK
+
+Download the latest APK from releases (coming soon).
+
+### Option C: Build with EAS
+```bash
+npm install -g eas-cli
+eas login
+eas build -p android
+```
+
+---
+
+## 📁 Project Structure
+
+```
+Contri/
+├── App.js                    # Entry point
+├── context/                  # Auth & Group contexts
+├── firebase/                 # Firebase config
+├── navigation/               # Navigation setup
+├── screens/                  # All app screens
+│   ├── LoginScreen.js
+│   ├── SignupScreen.js
+│   ├── GroupsScreen.js
+│   ├── GroupDetailScreen.js
+│   └── SettingsScreen.js
+├── utils/                    # Balance calculator
+├── android/                  # Native Android code
+├── app.json                  # Expo config
+└── package.json
+```
+
+## 🔧 Firebase Setup Detailed
+
+1. **Create Firebase Project**
+   - Go to [firebase.google.com](https://console.firebase.google.com)
+   - Click "Add project"
+   - Follow the steps
+
+2. **Enable Authentication**
+   - Build > Authentication > Get Started
+   - Sign-in method > Email/Password > Enable
+
+3. **Enable Firestore**
+   - Build > Firestore Database > Create Database
+   - Start in test mode (allows all reads/writes for 30 days)
+
+4. **Get Config**
+   - Project Settings (gear icon) > General
+   - Copy the `firebaseConfig` object
+
+5. **Update Code**
+   - Open `firebase/config.js`
+   - Replace placeholder values with your actual Firebase config
+
+---
+
+## ⚠️ Important Notes
+
+- **Firebase config is required** - App won't work without valid Firebase credentials
+- **API keys are not included** - You must add your own Firebase config
+- **Test mode Firestore** - Allows development without rules setup
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b`)
-3. Commit your changes (`git commit -m 'Add feature'`)
-4. Push to the branch (`git push origin feature-name`)
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
 5. Open a Pull Request
-
-## 📄 License
-
-This project is private and for personal use.
-
-## 🙏 Acknowledgments
-
-- Built with [Expo](https://expo.dev)
-- Firebase for backend services
-- React Navigation for routing
 
 ---
 
-**Note**: To use this app, you need to configure your own Firebase project. The app is not pre-configured with any backend.
+**Note**: This app requires your own Firebase project to function.

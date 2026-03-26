@@ -1,22 +1,26 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
-// Replace these with your own Firebase config from firebase.google.com
+// NOTE: Users must add their own Firebase config from firebase.google.com
+// For now, using placeholder - app will show errors until real config is added
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "your-project.firebaseapp.com",
   projectId: "your-project-id",
   storageBucket: "your-project.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abc123"
 };
 
-const app = initializeApp(firebaseConfig);
-export { app };
+let app, auth, db;
 
-export const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-});
-export const db = getFirestore(app);
+try {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+} catch (e) {
+  console.log('Firebase init error:', e);
+}
+
+export { app, auth, db };
